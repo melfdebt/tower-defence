@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://iktwrujwwrj8"]
+
+[ext_resource type="Script" uid="uid://c6uxyw80whvaw" path="res://components/HealthComponent.cs" id="1_7p1mj"]
+[ext_resource type="Script" uid="uid://dnclvgb6wo5xy" path="res://components/MoveComponent.cs" id="2_4ra3w"]
+[ext_resource type="Script" uid="uid://sfmqweodtqp1" path="res://components/ShootComponent.cs" id="3_5uy6h"]
+[ext_resource type="Script" uid="uid://b6nhds0fy01th" path="res://components/VisibilityComponent.cs" id="4_5uy6h"]
+[ext_resource type="PackedScene" uid="uid://bpyfb85t43leh" path="res://scenes/enemyBullet.tscn" id="4_c4w8v"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8tegq"]
+albedo_color = Color(0.5430687, 0.15202841, 0.15724885, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ntbkr"]
+material = SubResource("StandardMaterial3D_8tegq")
+top_radius = 0.112
+bottom_radius = 0.985
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rub7e"]
+radius = 1.3730469
+height = 2.7460938
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hkm52"]
+albedo_color = Color(0.20784314, 0.12156863, 0.14901961, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_c4w8v"]
+material = SubResource("StandardMaterial3D_hkm52")
+top_radius = 0.112
+bottom_radius = 0.3
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ntbkr"]
+height = 3.6235352
+radius = 11.861328
+
+[node name="enemy" type="CharacterBody3D" unique_id=1871844460 groups=["enemy"]]
+collision_layer = 2
+collision_mask = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=658183968]
+mesh = SubResource("CylinderMesh_ntbkr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1032906423]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0053710938, 0)
+shape = SubResource("CapsuleShape3D_rub7e")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1033168121]
+script = ExtResource("1_7p1mj")
+MaxHealth = 50.0
+metadata/_custom_type_script = "uid://c6uxyw80whvaw"
+
+[node name="MoveComponent" type="Node" parent="." unique_id=1191801288]
+script = ExtResource("2_4ra3w")
+metadata/_custom_type_script = "uid://dnclvgb6wo5xy"
+
+[node name="ShootComponent" type="Node3D" parent="." unique_id=92062113]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+script = ExtResource("3_5uy6h")
+BulletScene = ExtResource("4_c4w8v")
+metadata/_custom_type_script = "uid://sfmqweodtqp1"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ShootComponent" unique_id=1279537636]
+transform = Transform3D(-0.0053963587, 0.10338678, -0.9946266, -0.9986406, -0.052124873, 0, -0.051844783, 0.9932745, 0.103527516, 0.09752095, 1.1529145, 0)
+mesh = SubResource("CylinderMesh_c4w8v")
+
+[node name="VisibilityComponent" type="Area3D" parent="." unique_id=1732345065 node_paths=PackedStringArray("shootComponent", "moveComponent")]
+collision_layer = 8
+script = ExtResource("4_5uy6h")
+shootComponent = NodePath("../ShootComponent")
+moveComponent = NodePath("../MoveComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="VisibilityComponent" unique_id=152519654]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8117676, 0)
+shape = SubResource("CylinderShape3D_ntbkr")

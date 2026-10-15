@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://t4mks1yy2h2y"]
+
+[ext_resource type="PackedScene" uid="uid://cuori5qbkuyjo" path="res://scenes/tower.tscn" id="1_5iadj"]
+[ext_resource type="PackedScene" uid="uid://iktwrujwwrj8" path="res://scenes/enemy.tscn" id="2_uawk5"]
+
+[sub_resource type="Environment" id="Environment_rub7e"]
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ntbkr"]
+size = Vector3(2.4798737, 1, 0.96313477)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ntbkr"]
+size = Vector2(15, 15)
+
+[node name="Field" type="Node3D" unique_id=1092911222]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1174832557]
+environment = SubResource("Environment_rub7e")
+
+[node name="floor" type="Node3D" parent="." unique_id=795065945]
+
+[node name="enemy" parent="floor" unique_id=1871844460 instance=ExtResource("2_uawk5")]
+transform = Transform3D(-0.69154716, 0, -0.7223312, 0, 1, 0, 0.7223312, 0, -0.69154716, -5.069506, 0, 0.40785408)
+
+[node name="Tower" parent="floor" unique_id=611170582 instance=ExtResource("1_5iadj")]
+transform = Transform3D(0.65419924, 0, 0.7563222, 0, 1, 0, -0.7563222, 0, 0.65419924, 6.0735292, 0, -6.078528)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="floor" unique_id=966651799]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor/StaticBody3D" unique_id=684415340]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.42124176, 0, 0.003540039)
+shape = SubResource("BoxShape3D_ntbkr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="floor" unique_id=1100531670]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.009573936, 0, 0)
+mesh = SubResource("PlaneMesh_ntbkr")
+
+[node name="AreaLight3D" type="AreaLight3D" parent="." unique_id=1946101688]
+transform = Transform3D(1, 0, 0, 0, 0.04228995, -0.9991054, 0, 0.9991054, 0.04228995, 0, 0, 0)
+area_size = Vector2(1, 0.075348854)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=863556270]
+transform = Transform3D(-1, -8.742278e-08, -3.821371e-15, 0, -4.371139e-08, 1, -8.742278e-08, 1, 4.371139e-08, 3.5553546, 12, -4.839351)
+projection = 1
+size = 4.037375

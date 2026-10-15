@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://cuori5qbkuyjo"]
+
+[ext_resource type="Script" uid="uid://c6uxyw80whvaw" path="res://components/HealthComponent.cs" id="1_2x682"]
+[ext_resource type="PackedScene" uid="uid://c6sq3qomt60hn" path="res://scenes/Bullet.tscn" id="3_jfguu"]
+[ext_resource type="Script" uid="uid://sfmqweodtqp1" path="res://components/ShootComponent.cs" id="3_qrbg1"]
+[ext_resource type="Script" uid="uid://b6nhds0fy01th" path="res://components/VisibilityComponent.cs" id="4_qrbg1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8tegq"]
+albedo_color = Color(0.24559647, 0.34135675, 0.22731203, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7j8ug"]
+material = SubResource("StandardMaterial3D_8tegq")
+top_radius = 0.112
+bottom_radius = 0.985
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2x682"]
+radius = 1.1855469
+height = 2.6206055
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5uy6h"]
+albedo_color = Color(0.09019608, 0.1764706, 0.16470589, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ntbkr"]
+material = SubResource("StandardMaterial3D_5uy6h")
+top_radius = 0.112
+bottom_radius = 0.3
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_rub7e"]
+radius = 10.951006
+
+[node name="Tower" type="CharacterBody3D" unique_id=611170582 groups=["tower"]]
+collision_mask = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1194100265]
+mesh = SubResource("CylinderMesh_7j8ug")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1829210334]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.32348633, 0)
+shape = SubResource("CapsuleShape3D_2x682")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=317232761]
+script = ExtResource("1_2x682")
+metadata/_custom_type_script = "uid://c6uxyw80whvaw"
+
+[node name="ShootComponent" type="Node3D" parent="." unique_id=1190877994]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+script = ExtResource("3_qrbg1")
+BulletScene = ExtResource("3_jfguu")
+metadata/_custom_type_script = "uid://sfmqweodtqp1"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ShootComponent" unique_id=262930022]
+transform = Transform3D(-0.009879282, 0.18927339, -0.9818747, -0.9986406, -0.052124873, 0, -0.051180094, 0.9805399, 0.18953104, 0.09752095, 1.1529145, 0)
+mesh = SubResource("CylinderMesh_ntbkr")
+
+[node name="VisibilityComponent" type="Area3D" parent="." unique_id=2015627656 node_paths=PackedStringArray("shootComponent")]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("4_qrbg1")
+shootComponent = NodePath("../ShootComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="VisibilityComponent" unique_id=1729138198]
+shape = SubResource("SphereShape3D_rub7e")
