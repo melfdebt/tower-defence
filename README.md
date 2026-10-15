@@ -16,15 +16,12 @@ practice-3/
 │   ├── ShootComponent.cs
 │   └── VisibilityComponent.cs
 ├── scenes/
-│   ├── Field.tscn
-│   ├── tower.tscn
-│   ├── enemy.tscn
-│   ├── Bullet.tscn
-│   ├── enemyBullet.tscn
-│   └── Bullet.cs
-├── project.godot
-├── practice3.csproj
-└── practice3.sln
+    ├── Field.tscn
+    ├── tower.tscn
+    ├── enemy.tscn
+    ├── Bullet.tscn
+    ├── enemyBullet.tscn
+    └── Bullet.cs
 ```
 
 - `components/` — скрипты компонентов, реализующих отдельные функции игровых объектов.
